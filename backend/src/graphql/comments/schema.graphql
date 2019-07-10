@@ -1,0 +1,14 @@
+type Comment {
+  comment_id: ID!
+  feed_id: ID!
+  username: ID!
+  content: String!
+  created_at: Date
+  updated_at: Date
+}
+
+type Mutation {
+  createComment(feed_id: ID!, content: String!): Comment!
+  updateComment(comment_id: ID!, content: String!): Comment!
+  deleteComment(comment_id: ID!): Boolean!
+}

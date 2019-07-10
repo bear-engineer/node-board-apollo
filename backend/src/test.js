@@ -34,6 +34,10 @@ import { obtainCoinExp } from './utils/updateAsset';
 //     })
 //   );
 
-models.users.findByPk('admin').then(user => {
-  obtainCoinExp(user);
+models.feeds.findByPk(2).then(feed => {
+  feed.getComments().then(comment => {
+    forEach(comment, c => {
+      console.log(c.username);
+    });
+  });
 });

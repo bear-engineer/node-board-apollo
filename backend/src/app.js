@@ -3,6 +3,7 @@ import schema from './graphql';
 import express from 'express';
 import dotenv from 'dotenv';
 import morgan from 'morgan';
+import cors from 'cors';
 import models from './database/models';
 import { getUser, roleCheck } from './utils/isAuthenticated';
 dotenv.config();
@@ -25,9 +26,12 @@ const server = new ApolloServer({
 });
 
 server.applyMiddleware({ app });
-
+const corsOptions = {
+  origin: 'http://localhost:3000',
+};
 if (process.env.NODE_ENV !== 'production') {
   app.use(morgan('dev'));
+  app.use(cors());
 } else {
   app.use(morgan('combined'));
 }

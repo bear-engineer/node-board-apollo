@@ -5,6 +5,9 @@ export default {
     author: (parent, args, { models }) => {
       return parent.Author;
     },
+    comments: parent => {
+      return parent.Comments;
+    },
   },
   Query: {
     allFeed: async (parent, args, { models, user, roleCheck }, info) => {
@@ -24,11 +27,14 @@ export default {
       const next = page !== totalCount;
 
       const feeds = await models.feeds.findAll({
-        include: {
-          model: models.users,
-          as: 'Author',
-          attributes: ['nick_name', 'username'],
-        },
+        include: [
+          {
+            model: models.users,
+            as: 'Author',
+            attributes: ['nick_name', 'username'],
+          },
+          { model: models.comments, as: 'Comments' },
+        ],
         limit,
         offset,
       });
@@ -69,7 +75,7 @@ export default {
       if (!feed) {
         throw new UserInputError('not found feed');
       }
-      if (feed.username !== user.username) {
+      if (feed.username !== user.username && !user.is_staff) {
         throw new ForbiddenError('feed is not owner');
       }
       return await models.feeds.destroy({ where: { feed_id } });

@@ -50,10 +50,25 @@ db.users.hasOne(db.exp_table, {
   foreignKey: 'lv',
   sourceKey: 'lv',
 });
+db.users.hasMany(db.comments, {
+  as: 'Comments',
+  foreignKey: 'username',
+  sourceKey: 'username',
+});
+db.feeds.hasMany(db.comments, {
+  as: 'Comments',
+  foreignKey: 'feed_id',
+  sourceKey: 'feed_id',
+});
 db.feeds.belongsTo(db.users, {
   as: 'Author',
   foreignKey: 'username',
   targetKey: 'username',
+});
+db.comments.belongsTo(db.feeds, {
+  as: 'Feed',
+  foreignKey: 'feed_id',
+  sourceKey: 'feed_id',
 });
 
 module.exports = db;
