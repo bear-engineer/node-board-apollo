@@ -1,0 +1,12 @@
+type ProfileUser {
+  username: String!
+  nick_name: String!
+  lv: Int!
+  exp: Int!
+  coin: Int!
+  profile_image: String
+}
+
+type Query {
+  userProfile(username: String!): ProfileUser!
+}
