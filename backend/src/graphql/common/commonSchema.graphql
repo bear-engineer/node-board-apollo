@@ -1,0 +1,16 @@
+scalar Date
+
+type User {
+  username: String!
+  nick_name: String!
+  email: String!
+  signup_comment: String!
+  lv: Int!
+  exp: Int!
+  coin: Int!
+  is_active_item: Int
+  is_superuser: Int!
+  is_staff: Int!
+  is_active: Int!
+  created_at: Date!
+}
