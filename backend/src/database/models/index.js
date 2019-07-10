@@ -40,6 +40,20 @@ Object.keys(db).forEach(modelName => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-db.users.hasMany(db.feeds, { as: 'Feeds', foreignKey: 'username' });
-db.feeds.belongsTo(db.users, { as: 'Author', foreignKey: 'username' });
+db.users.hasMany(db.feeds, {
+  as: 'Feeds',
+  foreignKey: 'username',
+  sourceKey: 'username',
+});
+db.users.hasMany(db.exp_table, {
+  as: 'Exps',
+  foreignKey: 'lv',
+  sourceKey: 'lv',
+});
+db.feeds.belongsTo(db.users, {
+  as: 'Author',
+  foreignKey: 'username',
+  targetKey: 'username',
+});
+
 module.exports = db;

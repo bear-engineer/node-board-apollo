@@ -1,0 +1,25 @@
+type FeedAuthor {
+  nick_name: String!
+}
+
+type Feed {
+  feed_id: ID!
+  author: FeedAuthor!
+  username: String!
+  content: String!
+}
+
+type FeedData {
+  totalCount: Int!
+  next: Boolean!
+  feeds: [Feed!]!
+}
+
+type Query {
+  allFeed(limit: Int!, page: Int!): FeedData!
+}
+type Mutation {
+  createFeed(content: String!): Feed!
+  updateFeed(feed_id: ID!, content: String!): Feed!
+  deleteFeed(feed_id: ID!): Boolean!
+}

@@ -1,12 +1,34 @@
 import models from './database/models';
 import { passwordHash } from './utils/isAuthenticated';
-models.users.create({
-  username: 'superuser',
-  auth_key: passwordHash('tpgus9404'),
-  email: 'dev.younlab@gmail.com',
-  nick_name: 'superuser',
-  is_active: 1,
-  is_staff: 1,
-  is_superuser: 1,
-  signup_comment: '',
-});
+import { forEach } from 'iterall';
+// get model
+// models.users
+//   .findByPk('superuser')
+//   .then(user => console.log(user.getExps().then(exp => console.log(exp))));
+
+// user in feeds
+// models.users
+//   .findByPk('superuser')
+//   .then(user => user.getFeeds().then(feed => console.log(feed)));
+
+// models.feeds.findAll().then(feed => forEach(feed, console.log(feed)));
+
+// where
+// models.feeds
+//   .findOne({ where: { username: 'admin' } })
+//   .then(feed => feed.getAuthor().then(author => console.log(author)));
+
+// join search
+// models.users
+//   .findOne({
+//     where: { username: 'admin' },
+//     attributes: ['username'],
+//     include: [
+//       { model: models.feeds, as: 'Feeds', attributes: ['feed_id', 'username'] },
+//     ],
+//   })
+//   .then(user =>
+//     forEach(user.Feeds, feed => {
+//       console.log(feed.username);
+//     })
+//   );

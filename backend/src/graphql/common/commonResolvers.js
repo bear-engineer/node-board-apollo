@@ -4,6 +4,7 @@ export default {
       return new Date(value); // value from the client
     },
     __serialize(value) {
+      console.dir(value);
       return value.getTime(); // value sent to the client
     },
     __parseLiteral(ast) {
