@@ -45,7 +45,7 @@ db.users.hasMany(db.feeds, {
   foreignKey: 'username',
   sourceKey: 'username',
 });
-db.users.hasMany(db.exp_table, {
+db.users.hasOne(db.exp_table, {
   as: 'Exps',
   foreignKey: 'lv',
   sourceKey: 'lv',

@@ -1,7 +1,8 @@
 import { UserInputError, ForbiddenError } from 'apollo-server-express';
+import { obtainCoinExp } from '../../utils/updateAsset';
 export default {
-  Feed: {
-    author: async (parent, args, { models }) => {
+  Feeds: {
+    author: (parent, args, { models }) => {
       return parent.Author;
     },
   },
@@ -18,6 +19,7 @@ export default {
         offset = limit * (page - 1);
       }
 
+      // page info
       const totalCount = Math.ceil((await models.feeds.count()) / limit);
       const next = page !== totalCount;
 
@@ -27,7 +29,6 @@ export default {
           as: 'Author',
           attributes: ['nick_name', 'username'],
         },
-
         limit,
         offset,
       });
@@ -43,6 +44,7 @@ export default {
         username: user.username,
         content,
       });
+      obtainCoinExp(user, 'feed');
       return feed;
     },
     updateFeed: async (parent, args, { models, user, roleCheck }, info) => {

@@ -2,9 +2,15 @@ type FeedAuthor {
   nick_name: String!
 }
 
+type Feeds {
+  feed_id: ID!
+  author: FeedAuthor
+  username: String!
+  content: String!
+}
+
 type Feed {
   feed_id: ID!
-  author: FeedAuthor!
   username: String!
   content: String!
 }
@@ -12,7 +18,7 @@ type Feed {
 type FeedData {
   totalCount: Int!
   next: Boolean!
-  feeds: [Feed!]!
+  feeds: [Feeds!]!
 }
 
 type Query {

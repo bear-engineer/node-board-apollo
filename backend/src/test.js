@@ -1,6 +1,7 @@
 import models from './database/models';
 import { passwordHash } from './utils/isAuthenticated';
 import { forEach } from 'iterall';
+import { obtainCoinExp } from './utils/updateAsset';
 // get model
 // models.users
 //   .findByPk('superuser')
@@ -32,3 +33,7 @@ import { forEach } from 'iterall';
 //       console.log(feed.username);
 //     })
 //   );
+
+models.users.findByPk('admin').then(user => {
+  obtainCoinExp(user);
+});
