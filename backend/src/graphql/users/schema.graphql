@@ -6,7 +6,7 @@ type AllUsers {
 
 type Query {
   allUserInfo(limit: Int!, page: Int!): AllUsers!
-  searchUser(username: String, nick_name: String): User!
+  searchUser(username: String, nick_name: String): [User!]!
 }
 
 type Mutation {

@@ -1,3 +1,5 @@
+import { UserInputError } from 'apollo-server-express';
+
 export default {
   Query: {
     allUserInfo: async (_, args, { models, user, roleCheck }, info) => {
@@ -20,6 +22,28 @@ export default {
         offset,
       });
       return { totalCount, next, users };
+    },
+    searchUser: async (_, args, { models, user, roleCheck }, info) => {
+      roleCheck(user);
+      const { username, nick_name } = args;
+      let users;
+      if (username) {
+        users = await models.users.findAll({
+          where: {
+            username,
+          },
+        });
+      } else if (nick_name) {
+        users = await models.users.findAll({
+          where: {
+            nick_name,
+          },
+        });
+      } else {
+        throw new UserInputError('username Or nick name is not define');
+      }
+
+      return users;
     },
   },
 };
