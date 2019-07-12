@@ -1,0 +1,26 @@
+type AllUsers {
+  totalCount: Int!
+  users: [User!]!
+  next: Boolean!
+}
+
+type Query {
+  allUserInfo(limit: Int!, page: Int!): AllUsers!
+  searchUser(username: String, nick_name: String): User!
+}
+
+type Mutation {
+  deleteUser(username: String!): Boolean!
+  updateUser(
+    username: String!
+    nick_name: String!
+    email: String!
+    auth_key: String!
+    lv: Int!
+    exp: Int!
+    coni: Int!
+    is_staff: Int!
+    is_active: Int!
+  ): Boolean!
+  signUser(username: String!): Boolean!
+}

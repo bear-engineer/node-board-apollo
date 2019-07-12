@@ -21,21 +21,25 @@ const server = new ApolloServer({
     const token = tokenWithBearer.split(' ')[1] || null;
 
     const user = getUser(token);
-    return { models, user, roleCheck };
+    return { models, user, roleCheck, req };
   },
 });
 
-server.applyMiddleware({ app });
-const corsOptions = {
-  origin: 'http://localhost:3000',
-};
+let morganMode = '';
+let corsOriginHeader = '';
+
 if (process.env.NODE_ENV !== 'production') {
-  app.use(morgan('dev'));
-  app.use(cors());
+  morganMode = 'dev';
+  corsOriginHeader = '*';
 } else {
-  app.use(morgan('combined'));
+  corsOriginHeader = process.env.ORIGIN_HEADER;
+  morganMode = 'combined';
 }
 
-app.listen(PORT, () =>
+app.use(cors({ origin: corsOriginHeader }));
+app.use(morgan(morganMode));
+server.applyMiddleware({ app });
+
+app.listen(PORT, '0.0.0.0', () =>
   console.log(`🚀 Server Runnings http://localhost:${PORT}`)
 );

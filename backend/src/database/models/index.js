@@ -45,6 +45,11 @@ db.users.hasMany(db.feeds, {
   foreignKey: 'username',
   sourceKey: 'username',
 });
+db.users.hasMany(db.login_log, {
+  as: 'LoginLogs',
+  foreignKey: 'username',
+  sourceKey: 'username',
+});
 db.users.hasOne(db.exp_table, {
   as: 'Exps',
   foreignKey: 'lv',
@@ -62,6 +67,11 @@ db.feeds.hasMany(db.comments, {
 });
 db.feeds.belongsTo(db.users, {
   as: 'Author',
+  foreignKey: 'username',
+  targetKey: 'username',
+});
+db.login_log.belongsTo(db.users, {
+  as: 'LoginUser',
   foreignKey: 'username',
   targetKey: 'username',
 });

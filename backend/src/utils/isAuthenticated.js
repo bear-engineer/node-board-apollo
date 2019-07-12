@@ -8,7 +8,7 @@ import { AuthenticationError, ForbiddenError } from 'apollo-server-express';
 
 export const roleCheck = (user, role = null) => {
   // login check
-  if (!user) {
+  if (!user && role !== 'public') {
     throw new AuthenticationError('Not Authenticate');
   }
 
