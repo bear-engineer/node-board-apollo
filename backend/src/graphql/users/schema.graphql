@@ -11,16 +11,15 @@ type Query {
 
 type Mutation {
   deleteUser(username: String!): Boolean!
-  updateUser(
-    username: String!
-    nick_name: String!
-    email: String!
-    auth_key: String!
-    lv: Int!
-    exp: Int!
-    coni: Int!
-    is_staff: Int!
-    is_active: Int!
-  ): Boolean!
+  #   updateUser(
+  #     username: String!
+  #     nick_name: String!
+  #     email: String!
+  #     lv: Int!
+  #     exp: Int!
+  #     coni: Int!
+  #     is_staff: Int!
+  #     is_active: Int!
+  #   ): Boolean!
   signUser(username: String!): Boolean!
 }

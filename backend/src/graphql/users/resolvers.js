@@ -3,7 +3,7 @@ import { UserInputError } from 'apollo-server-express';
 export default {
   Query: {
     allUserInfo: async (_, args, { models, user, roleCheck }, info) => {
-      roleCheck(user);
+      roleCheck(user, 'staff');
       const { limit, page } = args;
 
       // default offset
@@ -24,7 +24,7 @@ export default {
       return { totalCount, next, users };
     },
     searchUser: async (_, args, { models, user, roleCheck }, info) => {
-      roleCheck(user);
+      roleCheck(user, 'staff');
       const { username, nick_name } = args;
       let users;
       if (username) {
@@ -44,6 +44,26 @@ export default {
       }
 
       return users;
+    },
+  },
+  Mutation: {
+    deleteUser: async (_, args, { models, user, roleCheck }, info) => {
+      roleCheck(user, 'staff');
+      const { username } = args;
+      const users = await models.users.destroy({ where: { username } });
+      return users;
+    },
+    signUser: async (_, args, { models, user, roleCheck }, info) => {
+      roleCheck(user, 'staff');
+      const { username } = args;
+      const users = await models.users.findByPk(username);
+      if (users.is_active) {
+        users.update({ is_active: 0 });
+        return true;
+      } else if (!users.is_active) {
+        users.update({ is_active: 1 });
+        return true;
+      }
     },
   },
 };
