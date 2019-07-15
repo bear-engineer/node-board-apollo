@@ -28,15 +28,20 @@ const server = new ApolloServer({
 let morganMode = '';
 let corsOriginHeader = '';
 
+const whitelist = process.env.ORIGIN_HEADER.split(',');
+
 if (process.env.NODE_ENV !== 'production') {
   morganMode = 'dev';
   corsOriginHeader = '*';
 } else {
-  corsOriginHeader = process.env.ORIGIN_HEADER;
+  corsOriginHeader = {
+    origin: whitelist,
+  };
   morganMode = 'combined';
 }
 
-app.use(cors({ origin: corsOriginHeader }));
+app.use(cors(corsOriginHeader));
+
 app.use(morgan(morganMode));
 server.applyMiddleware({ app });
 

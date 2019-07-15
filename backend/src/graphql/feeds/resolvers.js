@@ -1,5 +1,6 @@
 import { UserInputError, ForbiddenError } from 'apollo-server-express';
 import { obtainCoinExp } from '../../utils/updateAsset';
+import { Op } from 'sequelize';
 export default {
   Feeds: {
     author: (parent, args, { models }) => {
@@ -38,6 +39,45 @@ export default {
         limit,
         offset,
       });
+      return { totalCount, next, feeds };
+    },
+    searchFeed: async (_, args, { models, user, roleCheck }, info) => {
+      roleCheck(user, 'public');
+      const { limit, page, keyword } = args;
+
+      // default offset
+      let offset = 0;
+
+      // page number
+      if (page > 1) {
+        offset = limit * (page - 1);
+      }
+
+      // page info
+
+      const next = page !== totalCount;
+      const feeds = await models.feeds.findAll({
+        where: { content: { [Op.like]: `%${keyword}%` } },
+        include: [
+          {
+            model: models.users,
+            as: 'Author',
+            attributes: ['nick_name', 'username'],
+          },
+          { model: models.comments, as: 'Comments' },
+        ],
+        limit,
+        offset,
+      });
+
+      const count = {
+        ...(await models.feeds.findAndCountAll({
+          where: { content: { [Op.like]: `%${keyword}%` } },
+        })),
+      };
+
+      const totalCount = Math.ceil(count.count / limit);
+
       return { totalCount, next, feeds };
     },
   },

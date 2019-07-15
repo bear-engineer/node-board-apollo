@@ -1,5 +1,12 @@
 version: '3'
 services:
+  # server:
+  #   image: d.sehyeon/dice
+  #   container_name: server
+  #   ports:
+  #     - '4000:80'
+  #   stdin_open: true
+  # tty: true
   db:
     image: mysql:5.7
     environment:
@@ -8,6 +15,7 @@ services:
       MYSQL_USER: admin
       MYSQL_PASSWORD: admin@!
     container_name: dice_db
+    # network_mode: 'service:server'
+    tty: true
     ports:
       - '3306:3306'
-    tty: true

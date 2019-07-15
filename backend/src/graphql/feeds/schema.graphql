@@ -24,6 +24,7 @@ type FeedData {
 
 type Query {
   allFeed(limit: Int!, page: Int!): FeedData!
+  searchFeed(limit: Int!, page: Int!, keyword: String!): FeedData
 }
 type Mutation {
   createFeed(content: String!): Feed!

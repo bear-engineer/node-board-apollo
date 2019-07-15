@@ -17,6 +17,9 @@ module.exports = {
       env_production: {
         PORT: 80,
         NODE_ENV: 'production',
+        ORIGIN_HEADER:
+          'http://localhost:3000,http://127.0.0.1,http://localhost,http://127.0.0.1:80',
+        SECRET_KEY: 'aGVsbG8gZGljZQ==',
       },
     },
   ],
