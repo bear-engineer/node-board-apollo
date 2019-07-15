@@ -13,7 +13,7 @@ import App from './App';
 
 const cache = new InMemoryCache();
 const link = new HttpLink({
-  uri: 'http://0.0.0.0:4000/graphql',
+  uri: 'http://0.0.0.0/graphql',
   headers: {
     authorization: localStorage.getItem('api_token'),
   },
