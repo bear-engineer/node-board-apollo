@@ -1,7 +1,7 @@
 type AllUsers {
   totalCount: Int!
   users: [User!]!
-  next: Boolean!
+  next: Int
 }
 
 type Query {

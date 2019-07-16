@@ -15,7 +15,7 @@ export default {
       }
       // page info
       const totalCount = Math.ceil((await models.users.count()) / limit);
-      const next = page !== totalCount;
+      const next = page < totalCount ? page + 1 : null;
 
       const users = await models.users.findAll({
         limit,
