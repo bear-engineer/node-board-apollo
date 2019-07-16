@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import gql from 'graphql-tag';
-import { Query } from 'react-apollo';
+import { useQuery as query } from 'react-apollo-hooks';
+
 import Presenter from './presenter';
 
 const GET_ALL_USER = gql`
@@ -19,19 +20,17 @@ const GET_ALL_USER = gql`
         is_active
         is_staff
         is_superuser
+        created_at
       }
     }
   }
 `;
+const Container = (props) => {
+  const { data, error, loading } = query(GET_ALL_USER);
+  if (loading) return 'is loading...';
+  if (error) return 'error';
 
-const container = props => (
-  <Query query={GET_ALL_USER}>
-    {({ data, loading, error }) => {
-      if (loading) return 'is loading...';
-      if (error) return 'error';
-      return <Presenter {...props} {...data} />;
-    }}
-  </Query>
-);
+  return <Presenter {...props} {...data} />;
+};
 
-export default container;
+export default Container;

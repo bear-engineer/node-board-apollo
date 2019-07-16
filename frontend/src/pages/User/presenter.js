@@ -1,22 +1,26 @@
 import React from 'react';
-import styled from 'styled-components';
+
 import {
   Table, Tr, Td, Th,
 } from '../../components/Table';
 
-const onMappingData = data => data.map(item => (
-  <Tr key={item.username}>
-    <Td>{item.username}</Td>
-    <Td>{item.nick_name}</Td>
-    <Td>{item.email}</Td>
-    <Td>{item.lv}</Td>
-    <Td>{item.exp}</Td>
-    <Td>{item.coin}</Td>
-    <Td>{item.is_active}</Td>
-    <Td>{item.is_staff}</Td>
-    <Td>{item.is_superuser}</Td>
-  </Tr>
-));
+const onMappingData = data => data.map((item) => {
+  const date = new Date(item.created_at).toDateString();
+  return (
+    <Tr key={item.username}>
+      <Td>{item.username}</Td>
+      <Td>{item.nick_name}</Td>
+      <Td>{item.email}</Td>
+      <Td>{item.lv}</Td>
+      <Td>{item.exp}</Td>
+      <Td>{item.coin}</Td>
+      <Td>{item.is_active}</Td>
+      <Td>{item.is_staff}</Td>
+      <Td>{item.is_superuser}</Td>
+      <Td>{date}</Td>
+    </Tr>
+  );
+});
 
 const presenter = (props) => {
   const allUserInfo = props.allUserInfo.users;
@@ -33,6 +37,7 @@ const presenter = (props) => {
           <Th>Sign</Th>
           <Th>Staff Authority</Th>
           <Th>Super User Authority</Th>
+          <Th>Created Account</Th>
         </Tr>
       </thead>
       <tbody>{onMappingData(allUserInfo)}</tbody>
