@@ -2,9 +2,10 @@ import styled from 'styled-components';
 import React from 'react';
 
 export const Table = (props) => {
-  const { children } = props;
+  const { children, onScroll } = props;
+
   return (
-    <TableWrap>
+    <TableWrap onScroll={onScroll}>
       <Tb>{children}</Tb>
     </TableWrap>
   );

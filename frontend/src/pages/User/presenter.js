@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+
 
 import {
   Table, Tr, Td, Th,
@@ -6,6 +7,7 @@ import {
 
 const onMappingData = data => data.map((item) => {
   const date = new Date(item.created_at).toDateString();
+
   return (
     <Tr key={item.username}>
       <Td>{item.username}</Td>
@@ -22,10 +24,13 @@ const onMappingData = data => data.map((item) => {
   );
 });
 
-const presenter = (props) => {
-  const allUserInfo = props.allUserInfo.users;
+const Presenter = (props) => {
+  // const { data, next, onLoad } = props;
+  // const loadConfig = !!next;
+
+
   return (
-    <Table>
+    <Table id="scrollTable">
       <thead>
         <Tr>
           <Th>Username</Th>
@@ -39,10 +44,10 @@ const presenter = (props) => {
           <Th>Super User Authority</Th>
           <Th>Created Account</Th>
         </Tr>
-      </thead>
-      <tbody>{onMappingData(allUserInfo)}</tbody>
+      {/* </thead>
+      <tbody>{onMappingData()}</tbody> */}
     </Table>
   );
 };
 
-export default presenter;
+export default Presenter;
